@@ -56,11 +56,11 @@ def validate_poly_regression(X,y,sample_size):
 
             X_train, X_test, y_train, y_test = split
 
-            sample_size = int(len(X) * sample_size)
-            X_train = X_train[:sample_size]
-            y_train = y_train[:sample_size]
-            X_test = X_test[:sample_size]
-            y_test = y_test[:sample_size]
+            size = int(len(X) * sample_size)
+            X_train = X_train[:size]
+            y_train = y_train[:size]
+            X_test = X_test[:size]
+            y_test = y_test[:size]
 
             pipeline = Pipeline([
                 ('poly', PolynomialFeatures(degree=degree, include_bias=False)),
@@ -83,6 +83,8 @@ def validate_poly_regression(X,y,sample_size):
 
             # best_alpha = pipeline.named_steps['regressor'].alpha_
             # print(f'O melhor valor de alpha é: {best_alpha}')
+            break
+
 
         final_rmse = np.mean(RMSE)
 
@@ -97,7 +99,7 @@ def main():
     X = X_file[['x_1', 'y_1', 'x_2', 'y_2', 't']].values
     y = y_file[['x_1', 'y_1', 'x_2', 'y_2', 'x_3', 'y_3']].values
 
-    validate_poly_regression(X,y, 0.003)
+    validate_poly_regression(X,y, 0.2)
 
 if __name__ == "__main__":
     main()
